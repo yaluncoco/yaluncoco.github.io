@@ -39,6 +39,171 @@
 &lt;p&gt;需要注意：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;系统 CUDA Toolkit 与 Conda 环境中的 CUDA Runtime 并不是完全等价。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>最近在 Ubuntu 22.04 环境下配置 MMSegmentation，并使用 NVIDIA RTX 4090 进行训练。</p>
+<p>整个过程中主要遇到了：</p>
+<ul>
+<li>PyTorch 与 CUDA 版本匹配问题</li>
+<li>MMCV版本兼容问题</li>
+<li>mmcv._ext 编译问题</li>
+<li>mmengine版本导致resume卡死问题</li>
+<li>训练权重保存问题</li>
+</ul>
+<p>这里记录完整安装流程以及遇到的问题，希望可以帮助后续需要配置 MMSegmentation 的朋友。</p>
+<hr>
+<h1 id="一创建-conda-环境">一、创建 Conda 环境</h1>
+<p>首先创建 Python 环境：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>conda create --name openmmlab python<span style="color:#f92672">=</span>3.8 -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>conda activate openmmlab
+</span></span></code></pre></div><hr>
+<h1 id="二安装-pytorch">二、安装 PyTorch</h1>
+<h2 id="1-cuda版本选择">1. CUDA版本选择</h2>
+<p>由于服务器显卡为 RTX 4090，因此 CUDA Toolkit 版本不能过低。</p>
+<p>RTX 4090 使用 Ada Lovelace 架构，需要 CUDA 对其提供支持。</p>
+<p>CUDA Toolkit 下载地址：</p>
+<p><a href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA Toolkit Archive</a></p>
+<p>需要注意：</p>
+<blockquote>
+<p>系统 CUDA Toolkit 与 Conda 环境中的 CUDA Runtime 并不是完全等价。</p>
+</blockquote>
+<p>我的理解：</p>
+<ul>
+<li>系统 CUDA Toolkit 主要负责 CUDA Extension 编译</li>
+<li>PyTorch 环境中的 CUDA Runtime 负责运行时调用</li>
+</ul>
+<p>因此，对于需要编译 CUDA 算子的 OpenMMLab 项目，需要保证：</p>
+<pre tabindex="0"><code>GPU Driver
+      ↓
+CUDA Toolkit
+      ↓
+PyTorch CUDA Runtime
+      ↓
+MMCV CUDA Extension
+</code></pre><p>之间相互兼容。</p>
+<hr>
+<h2 id="2-安装-pytorch">2. 安装 PyTorch</h2>
+<p>推荐安装较稳定版本：</p>
+<h3 id="conda安装">Conda安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>conda install pytorch<span style="color:#f92672">==</span>1.13.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>torchvision<span style="color:#f92672">==</span>0.14.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>torchaudio<span style="color:#f92672">==</span>0.13.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>pytorch-cuda<span style="color:#f92672">=</span>11.7 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>-c pytorch <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>-c nvidia
+</span></span></code></pre></div><h3 id="pip安装">Pip安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install torch<span style="color:#f92672">==</span>1.13.0+cu117 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>torchvision<span style="color:#f92672">==</span>0.14.0+cu117 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>torchaudio<span style="color:#f92672">==</span>0.13.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>--extra-index-url https://download.pytorch.org/whl/cu117
+</span></span></code></pre></div><hr>
+<h1 id="三安装-openmmlab-依赖">三、安装 OpenMMLab 依赖</h1>
+<p>MMSegmentation 1.x 版本基于：</p>
+<pre tabindex="0"><code>MMEngine
+      |
+MMCV
+      |
+MMSegmentation
+</code></pre><p>因此需要先安装 MMCV。</p>
+<hr>
+<h2 id="使用-mim安装-mmcv">使用 MIM安装 MMCV</h2>
+<p>安装 openmim：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -U openmim
+</span></span></code></pre></div><p>安装 mmengine：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mim install mmengine
+</span></span></code></pre></div><p>安装 MMCV：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mim install <span style="color:#e6db74">&#34;mmcv&gt;=2.0.0&#34;</span>
+</span></span></code></pre></div><hr>
+<h1 id="四安装-mmsegmentation">四、安装 MMSegmentation</h1>
+<h2 id="方法1源码安装推荐">方法1：源码安装（推荐）</h2>
+<p>如果需要修改代码或者进行模型开发：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone -b main https://github.com/open-mmlab/mmsegmentation.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd mmsegmentation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pip install -v -e .
+</span></span></code></pre></div><p>参数说明：</p>
+<pre tabindex="0"><code>-v
+</code></pre><p>表示输出详细安装信息。</p>
+<pre tabindex="0"><code>-e
+</code></pre><p>表示 editable 模式安装。</p>
+<p>修改源码后无需重新安装。</p>
+<hr>
+<h2 id="方法2pip安装">方法2：pip安装</h2>
+<p>如果只是作为第三方库使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install <span style="color:#e6db74">&#34;mmsegmentation&gt;=1.0.0&#34;</span>
+</span></span></code></pre></div><hr>
+<h1 id="五测试安装是否成功">五、测试安装是否成功</h1>
+<h2 id="下载配置文件和权重">下载配置文件和权重</h2>
+<p>执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mim download mmsegmentation <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>--config pspnet_r50-d8_4xb2-40k-cityscapes-512x1024 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>--dest .
+</span></span></code></pre></div><p>下载完成后会得到：</p>
+<pre tabindex="0"><code>pspnet_r50-d8_4xb2-40k-cityscapes-512x1024.py
+
+pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
+</code></pre><hr>
+<h2 id="推理测试">推理测试</h2>
+<p>运行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python demo/image_demo.py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>demo/demo.png <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>configs/pspnet/pspnet_r50-d8_4xb2-40k_cityscapes-512x1024.py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>--device cuda:0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>--out-file result.jpg
+</span></span></code></pre></div><p>如果运行成功，会生成：</p>
+<pre tabindex="0"><code>result.jpg
+</code></pre><p>其中包含预测分割结果。</p>
+<hr>
+<h1 id="六常见报错及解决方法">六、常见报错及解决方法</h1>
+<h1 id="1-mmcv版本不兼容">1. MMCV版本不兼容</h1>
+<h2 id="错误信息">错误信息</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>AssertionError:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MMCV==2.2.0 is used but incompatible.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Please install mmcv&gt;=2.0.0rc4.
+</span></span></code></pre></div><hr>
+<h2 id="原因">原因</h2>
+<p>MMSegmentation 对 MMCV 版本存在严格要求。</p>
+<p>例如：</p>
+<pre tabindex="0"><code>MMSegmentation
+        |
+        |
+      MMCV
+</code></pre><p>版本不匹配会导致初始化失败。</p>
+<hr>
+<h2 id="解决方法">解决方法</h2>
+<p>方法1：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install mmcv-lite<span style="color:#f92672">==</span>2.0.0rc4
+</span></span></code></pre></div><p>如果仍然失败：</p>
+<p>方法2：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mim install mmcv<span style="color:#f92672">==</span>2.1.0
+</span></span></code></pre></div><p>重新运行测试代码即可。</p>
+<hr>
+<h1 id="2-modulenotfounderror-no-module-named-mmcv_ext">2. ModuleNotFoundError: No module named &lsquo;mmcv._ext&rsquo;</h1>
+<h2 id="错误信息-1">错误信息</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>ModuleNotFoundError:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>No module named &#39;mmcv._ext&#39;
+</span></span></code></pre></div><hr>
+<h2 id="原因分析">原因分析</h2>
+<p>这个问题通常表示：</p>
+<p>当前安装的是：</p>
+<pre tabindex="0"><code>mmcv-lite
+</code></pre><p>而不是：</p>
+<pre tabindex="0"><code>mmcv-full
+</code></pre><p>或者 MMCV CUDA Extension 没有正确编译。</p>
+<hr>
+<h2 id="解决方法-1">解决方法</h2>
+<p>重新安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mim install mmcv<span style="color:#f92672">==</span>2.1.0
+</span></span></code></pre></div><p>确认：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -c <span style="color:#e6db74">&#34;import mmcv;print(mmcv.__version__)&#34;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>2.1.0
+</code></pre><p>即可。</p>
+<hr>
+]]></content:encoded>
     </item>
   </channel>
 </rss>
