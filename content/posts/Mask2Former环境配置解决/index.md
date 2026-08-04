@@ -1,5 +1,20 @@
-# Mask2Former环境配置解决
+---
+title: "Mask2Former环境配置踩坑记录与解决方案"
 
+date: 2026-08-04
+
+draft: false
+
+author:
+  - Yalun
+
+tags:
+  - Mask2Former
+  - Detectron2
+  - CUDA
+  - PyTorch
+  - Conda
+---
 
 ## 第一步 GitHub官方安装
 
