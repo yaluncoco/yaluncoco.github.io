@@ -337,16 +337,3 @@ python -c "import mmcv;print(mmcv.__version__)"
 
 ---
 
-```
-
-下一条继续给你整理：
-
-- 多模型批量可视化代码（改成 Markdown）
-- `with_labels=False` 去标签说明
-- `save_best='mIoU'` 最优模型保存
-- resume 卡在 `Advance dataloader`
-- yapf/mmengine 兼容问题
-- `only one of size and size_divisor should be valid` 解决方案
-
-我会保持同一篇博客格式。
-```

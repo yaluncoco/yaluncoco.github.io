@@ -1,9 +1,8 @@
 baseURL: "https://yaluncoco.github.io/"
-languageCode: zh-cn
-title: "亚伦格林的博客"
+languageCode: "zh-cn"
+title: "亚伦格林"
 
-theme:
-  - PaperMod
+theme: "PaperMod"
 
 
 pagination:
@@ -11,6 +10,11 @@ pagination:
 
 
 enableRobotsTXT: true
+
+
+taxonomies:
+  category: categories
+  tag: tags
 
 
 params:
@@ -35,14 +39,40 @@ params:
 
   ShowRssButtonInSectionTermList: true
 
+  ShowFullTextinRSS: true
+
 
   homeInfoParams:
 
-    Title: "步履不停👣👣"
+    Title: "👣步履不停👣"
 
     Content: |
       有意义和没意义本身就会消磨人。
       所以好好活就是有意义，有意义就是好好活。
+
+
+  fuseOpts:
+
+    isCaseSensitive: false
+
+    shouldSort: true
+
+    location: 0
+
+    distance: 1000
+
+    threshold: 0.4
+
+    minMatchCharLength: 2
+
+    keys:
+      - title
+      - permalink
+      - summary
+      - content
+      - tags
+      - categories
+
 
 
 menu:
@@ -79,9 +109,20 @@ menu:
       weight: 50
 
 
+
 outputs:
 
   home:
+
     - HTML
     - RSS
     - JSON
+
+
+markup:
+
+  goldmark:
+
+    renderer:
+
+      unsafe: true

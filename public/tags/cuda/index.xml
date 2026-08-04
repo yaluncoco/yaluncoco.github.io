@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CUDA on 亚伦格林</title>
+    <link>https://yaluncoco.github.io/tags/cuda/</link>
+    <description>Recent content in CUDA on 亚伦格林</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yaluncoco.github.io/tags/cuda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mask2Former环境配置踩坑记录与解决方案</title>
+      <link>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</guid>
+      <description>&lt;p&gt;最近配置 Mask2Former 训练环境时遇到了不少问题，主要集中在 &lt;strong&gt;CUDA Toolkit、PyTorch、Detectron2版本兼容以及CUDA算子编译&lt;/strong&gt; 等方面。&lt;/p&gt;
+&lt;p&gt;这里记录一下整个配置过程中的问题和解决方案，希望能够帮助遇到类似问题的朋友。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;一官方安装流程&#34;&gt;一、官方安装流程&lt;/h2&gt;
+&lt;p&gt;首先参考 Mask2Former 官方安装文档：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/facebookresearch/Mask2Former/blob/9b0651c6c1d5b3af2e6da0589b719c514ec0d69a/INSTALL.md&#34;&gt;Mask2Former Installation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果显卡型号较老，建议优先按照官方流程进行安装，一般不会出现太多问题。&lt;/p&gt;
+&lt;p&gt;如果对于 CUDA 环境配置存在疑问，可以参考我的另一篇文章：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43712324/article/details/135427738?spm=1001.2014.3001.5501&#34;&gt;解决CUDA环境问题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下面记录我在配置过程中遇到的问题。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;二实验环境&#34;&gt;二、实验环境&lt;/h1&gt;
+&lt;p&gt;我的服务器环境如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GPU：NVIDIA RTX 4090&lt;/li&gt;
+&lt;li&gt;操作系统：
+&lt;ul&gt;
+&lt;li&gt;Windows 主机&lt;/li&gt;
+&lt;li&gt;WSL2 Ubuntu 20.04 作为训练环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Windows 主机只安装 NVIDIA 显卡驱动，没有安装 CUDA Toolkit&lt;/li&gt;
+&lt;li&gt;模型训练运行在 WSL2 环境中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;显卡信息如下：&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;nvidia-smi&#34; loading=&#34;lazy&#34; src=&#34;https://i-blog.csdnimg.cn/direct/1247e55086244037aa6c1f689fd23e8e.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;由于 RTX 4090 属于较新的 GPU 架构，因此在 CUDA 版本兼容方面遇到了一些问题。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;三问题记录与解决方案&#34;&gt;三、问题记录与解决方案&lt;/h1&gt;
+&lt;h2 id=&#34;1-cuda_home-not-found&#34;&gt;1. CUDA_HOME not Found&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述&lt;/h3&gt;
+&lt;p&gt;按照官方流程编译 Mask2Former CUDA 算子：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd mask2former/modeling/pixel_decoder/ops
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh make.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;出现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CUDA_HOME not found
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;原因分析&#34;&gt;原因分析&lt;/h3&gt;
+&lt;p&gt;Mask2Former中部分模块需要编译 CUDA Extension，例如：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结</title>
+      <link>https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/</guid>
+      <description>&lt;p&gt;最近在 Ubuntu 22.04 环境下配置 MMSegmentation，并使用 NVIDIA RTX 4090 进行训练。&lt;/p&gt;
+&lt;p&gt;整个过程中主要遇到了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PyTorch 与 CUDA 版本匹配问题&lt;/li&gt;
+&lt;li&gt;MMCV版本兼容问题&lt;/li&gt;
+&lt;li&gt;mmcv._ext 编译问题&lt;/li&gt;
+&lt;li&gt;mmengine版本导致resume卡死问题&lt;/li&gt;
+&lt;li&gt;训练权重保存问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里记录完整安装流程以及遇到的问题，希望可以帮助后续需要配置 MMSegmentation 的朋友。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;一创建-conda-环境&#34;&gt;一、创建 Conda 环境&lt;/h1&gt;
+&lt;p&gt;首先创建 Python 环境：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda create --name openmmlab python&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;3.8 -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda activate openmmlab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;二安装-pytorch&#34;&gt;二、安装 PyTorch&lt;/h1&gt;
+&lt;h2 id=&#34;1-cuda版本选择&#34;&gt;1. CUDA版本选择&lt;/h2&gt;
+&lt;p&gt;由于服务器显卡为 RTX 4090，因此 CUDA Toolkit 版本不能过低。&lt;/p&gt;
+&lt;p&gt;RTX 4090 使用 Ada Lovelace 架构，需要 CUDA 对其提供支持。&lt;/p&gt;
+&lt;p&gt;CUDA Toolkit 下载地址：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.nvidia.com/cuda-toolkit-archive&#34;&gt;CUDA Toolkit Archive&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;需要注意：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;系统 CUDA Toolkit 与 Conda 环境中的 CUDA Runtime 并不是完全等价。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

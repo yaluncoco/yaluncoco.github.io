@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on 格林的博客</title>
-    <link>http://localhost:1313/tags/</link>
-    <description>Recent content in Tags on 格林的博客</description>
+    <title>Tags on 亚伦格林</title>
+    <link>https://yaluncoco.github.io/tags/</link>
+    <description>Recent content in Tags on 亚伦格林</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yaluncoco.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Conda</title>
+      <link>https://yaluncoco.github.io/tags/conda/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/conda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CUDA</title>
+      <link>https://yaluncoco.github.io/tags/cuda/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Detectron2</title>
+      <link>https://yaluncoco.github.io/tags/detectron2/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/detectron2/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mask2Former</title>
+      <link>https://yaluncoco.github.io/tags/mask2former/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/mask2former/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MMSegmentation</title>
+      <link>https://yaluncoco.github.io/tags/mmsegmentation/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/mmsegmentation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OpenMMLab</title>
+      <link>https://yaluncoco.github.io/tags/openmmlab/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/openmmlab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PyTorch</title>
+      <link>https://yaluncoco.github.io/tags/pytorch/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/pytorch/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

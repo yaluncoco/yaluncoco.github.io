@@ -2,17 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/hello-world/</loc>
+    <loc>https://yaluncoco.github.io/tags/conda/</loc>
     <lastmod>2026-08-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>https://yaluncoco.github.io/tags/cuda/</loc>
     <lastmod>2026-08-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://yaluncoco.github.io/tags/detectron2/</loc>
     <lastmod>2026-08-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://yaluncoco.github.io/tags/mask2former/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/tags/mmsegmentation/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/tags/openmmlab/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/posts/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/tags/pytorch/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/tags/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/</loc>
+    <lastmod>2026-08-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yaluncoco.github.io/archives/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/archives/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/categories/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/faq/faq/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/faq/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/search/search/</loc>
+  </url><url>
+    <loc>https://yaluncoco.github.io/search/</loc>
   </url>
 </urlset>
