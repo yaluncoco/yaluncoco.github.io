@@ -38,12 +38,11 @@ params:
 
   homeInfoParams:
 
-    Title: "👋 Welcome to Yalun Blog"
+    Title: "步履不停👣👣"
 
     Content: |
-      Hi, this is Yalun.
-      I’m documenting my research notes about
-      Computer Vision, Remote Sensing and Deep Learning.
+      有意义和没意义本身就会消磨人。
+      所以好好活就是有意义，有意义就是好好活。
 
 
 menu:
