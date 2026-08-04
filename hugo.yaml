@@ -1,11 +1,21 @@
-baseURL: "http://localhost/"
+baseURL: "https://yaluncoco.github.io/"
 languageCode: zh-cn
-title: "格林的博客"
+title: "Yalun Blog"
 
 theme:
   - PaperMod
 
+
+pagination:
+  pagerSize: 10
+
+
+enableRobotsTXT: true
+
+
 params:
+
+  env: production
 
   defaultTheme: auto
 
@@ -15,6 +25,64 @@ params:
 
   ShowCodeCopyButtons: true
 
+  ShowPostNavLinks: true
+
+  ShowBreadCrumbs: true
+
   ShowToc: true
 
-  TocOpen: true
+  TocOpen: false
+
+  ShowRssButtonInSectionTermList: true
+
+
+  homeInfoParams:
+
+    Title: "👋 Welcome to Yalun Blog"
+
+    Content: |
+      Hi, this is Yalun.
+      I’m documenting my research notes about
+      Computer Vision, Remote Sensing and Deep Learning.
+
+
+menu:
+
+  main:
+
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+
+
+    - identifier: archives
+      name: Archive
+      url: /archives/
+      weight: 20
+
+
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30
+
+
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 40
+
+
+    - identifier: faq
+      name: FAQ
+      url: /faq/
+      weight: 50
+
+
+outputs:
+
+  home:
+    - HTML
+    - RSS
+    - JSON
