@@ -207,9 +207,9 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
     </item>
     <item>
       <title></title>
-      <link>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</link>
+      <link>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</guid>
+      <guid>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</guid>
       <description>&lt;h1 id=&#34;mask2former环境配置解决&#34;&gt;Mask2Former环境配置解决&lt;/h1&gt;
 &lt;h2 id=&#34;第一步-github官方安装&#34;&gt;第一步 GitHub官方安装&lt;/h2&gt;
 &lt;p&gt;贴一下官方安装链接：&lt;/p&gt;
@@ -221,7 +221,7 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 &lt;p&gt;首先我的服务器显卡为 RTX 4090，下面是详细信息。&lt;/p&gt;
 &lt;p&gt;Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。&lt;/p&gt;
 &lt;p&gt;训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;nvidia-smi&#34; loading=&#34;lazy&#34; src=&#34;image1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;nvidia-smi&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。&lt;/p&gt;
 &lt;p&gt;下面一一列举。&lt;/p&gt;
 &lt;hr&gt;
@@ -241,7 +241,7 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;那么可能就是 CUDA 版本和显卡架构不匹配。&lt;/p&gt;
 &lt;p&gt;因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。&lt;/p&gt;
 &lt;p&gt;下面贴出网上相关讨论：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;CUDA版本问题&#34; loading=&#34;lazy&#34; src=&#34;image2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;CUDA版本问题&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;参考链接：&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h1 id="mask2former环境配置解决">Mask2Former环境配置解决</h1>
 <h2 id="第一步-github官方安装">第一步 GitHub官方安装</h2>
@@ -254,7 +254,7 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 <p>首先我的服务器显卡为 RTX 4090，下面是详细信息。</p>
 <p>Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。</p>
 <p>训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。</p>
-<p><img alt="nvidia-smi" loading="lazy" src="image1.png"></p>
+<p><img alt="nvidia-smi" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png"></p>
 <p>我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。</p>
 <p>下面一一列举。</p>
 <hr>
@@ -274,7 +274,7 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 </span></span></code></pre></div><p>那么可能就是 CUDA 版本和显卡架构不匹配。</p>
 <p>因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。</p>
 <p>下面贴出网上相关讨论：</p>
-<p><img alt="CUDA版本问题" loading="lazy" src="image2.png"></p>
+<p><img alt="CUDA版本问题" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png"></p>
 <p>参考链接：</p>
 <p><a href="https://github.com/pytorch/pytorch/issues/87595">https://github.com/pytorch/pytorch/issues/87595</a></p>
 <p>所以之前做了很多无用功，不停安装 CUDA，但是一直出现各种问题。</p>
@@ -296,8 +296,8 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 </span></span></code></pre></div><p>不兼容。</p>
 <p>我尝试了好几种方法解决这个问题。</p>
 <p>这些解决方法来自下面几个博客，我把链接贴出来，截图方便查看。</p>
-<p><img alt="问题截图1" loading="lazy" src="image3.png"></p>
-<p><img alt="问题截图2" loading="lazy" src="image4.png"></p>
+<p><img alt="问题截图1" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image3.png"></p>
+<p><img alt="问题截图2" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image4.png"></p>
 <p>解决问题博客1：</p>
 <p><a href="https://blog.csdn.net/qq_41811902/article/details/134236417">Mask2Former训练问题解决</a></p>
 <p>解决问题博客2：</p>
