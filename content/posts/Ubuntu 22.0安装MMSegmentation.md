@@ -16,8 +16,6 @@ tags:
   - Conda
 ---
 
-# Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结
-
 最近在 Ubuntu 22.04 环境下配置 MMSegmentation，并使用 NVIDIA RTX 4090 进行训练。
 
 整个过程中主要遇到了：
