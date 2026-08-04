@@ -16,8 +16,6 @@ tags:
   - Conda
 ---
 
-# Mask2Former环境配置踩坑记录与解决方案
-
 最近配置 Mask2Former 训练环境时遇到了不少问题，主要集中在 **CUDA Toolkit、PyTorch、Detectron2版本兼容以及CUDA算子编译** 等方面。
 
 这里记录一下整个配置过程中的问题和解决方案，希望能够帮助遇到类似问题的朋友。
