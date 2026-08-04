@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Posts | 亚伦格林</title>
+<title>Posts | yalungelin</title>
 <meta name="keywords" content="">
-<meta name="description" content="Posts - 亚伦格林">
+<meta name="description" content="Posts - yalungelin">
 <meta name="author" content="">
 <link rel="canonical" href="https://yaluncoco.github.io/posts/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
@@ -66,7 +66,7 @@
     }
 
 </script><meta property="og:url" content="https://yaluncoco.github.io/posts/">
-  <meta property="og:site_name" content="亚伦格林">
+  <meta property="og:site_name" content="yalungelin">
   <meta property="og:title" content="Posts">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="website">
@@ -94,7 +94,7 @@
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://yaluncoco.github.io/" accesskey="h" title="亚伦格林 (Alt + H)">亚伦格林</a>
+            <a href="https://yaluncoco.github.io/" accesskey="h" title="yalungelin (Alt + H)">yalungelin</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
@@ -170,35 +170,11 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结
+    <h2 class="entry-hint-parent">Mask2Former环境配置踩坑记录与解决方案
     </h2>
   </header>
   <div class="entry-content">
-    <p>最近在 Ubuntu 22.04 环境下配置 MMSegmentation，并使用 NVIDIA RTX 4090 进行训练。
-整个过程中主要遇到了：
-PyTorch 与 CUDA 版本匹配问题 MMCV版本兼容问题 mmcv._ext 编译问题 mmengine版本导致resume卡死问题 训练权重保存问题 这里记录完整安装流程以及遇到的问题，希望可以帮助后续需要配置 MMSegmentation 的朋友。
-一、创建 Conda 环境 首先创建 Python 环境：
-conda create --name openmmlab python=3.8 -y conda activate openmmlab 二、安装 PyTorch 1. CUDA版本选择 由于服务器显卡为 RTX 4090，因此 CUDA Toolkit 版本不能过低。
-RTX 4090 使用 Ada Lovelace 架构，需要 CUDA 对其提供支持。
-CUDA Toolkit 下载地址：
-CUDA Toolkit Archive
-需要注意：
-系统 CUDA Toolkit 与 Conda 环境中的 CUDA Runtime 并不是完全等价。
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-04 00:00:00 +0000 UTC'>August 4, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>Yalun</span></footer>
-  <a class="entry-link" aria-label="post link to Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结" href="https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Mask2Former环境配置解决 第一步 GitHub官方安装 贴一下官方安装链接：
+    <p>第一步 GitHub官方安装 贴一下官方安装链接：
 Mask2Former
 如果设备（显卡）不是很新，可以先照着官方步骤进行安装。
 如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：
@@ -220,17 +196,42 @@ nvrtc: error: invalid value for --gpu-architecture (-arch) 那么可能就是 CU
 因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。
 下面贴出网上相关讨论：
 参考链接：
+https://github.com/pytorch/pytorch/issues/87595
 ...</p>
   </div>
   <footer class="entry-footer">
 
-<span>1 min</span></footer>
-  <a class="entry-link" aria-label="post link to " href="https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/"></a>
+<span title='2026-08-04 00:00:00 +0000 UTC'>August 4, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>Yalun</span></footer>
+  <a class="entry-link" aria-label="post link to Mask2Former环境配置踩坑记录与解决方案" href="https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近在 Ubuntu 22.04 环境下配置 MMSegmentation，并使用 NVIDIA RTX 4090 进行训练。
+整个过程中主要遇到了：
+PyTorch 与 CUDA 版本匹配问题 MMCV版本兼容问题 mmcv._ext 编译问题 mmengine版本导致resume卡死问题 训练权重保存问题 这里记录完整安装流程以及遇到的问题，希望可以帮助后续需要配置 MMSegmentation 的朋友。
+一、创建 Conda 环境 首先创建 Python 环境：
+conda create --name openmmlab python=3.8 -y conda activate openmmlab 二、安装 PyTorch 1. CUDA版本选择 由于服务器显卡为 RTX 4090，因此 CUDA Toolkit 版本不能过低。
+RTX 4090 使用 Ada Lovelace 架构，需要 CUDA 对其提供支持。
+CUDA Toolkit 下载地址：
+CUDA Toolkit Archive
+需要注意：
+系统 CUDA Toolkit 与 Conda 环境中的 CUDA Runtime 并不是完全等价。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-04 00:00:00 +0000 UTC'>August 4, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>Yalun</span></footer>
+  <a class="entry-link" aria-label="post link to Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结" href="https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/"></a>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://yaluncoco.github.io/">亚伦格林</a></span> · 
+        <span>&copy; 2026 <a href="https://yaluncoco.github.io/">yalungelin</a></span> · 
 
     
     

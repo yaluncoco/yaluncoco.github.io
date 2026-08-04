@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>PyTorch | 亚伦格林</title>
+<title>PyTorch | yalungelin</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -66,7 +66,7 @@
     }
 
 </script><meta property="og:url" content="https://yaluncoco.github.io/tags/pytorch/">
-  <meta property="og:site_name" content="亚伦格林">
+  <meta property="og:site_name" content="yalungelin">
   <meta property="og:title" content="PyTorch">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="website">
@@ -79,7 +79,7 @@
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://yaluncoco.github.io/" accesskey="h" title="亚伦格林 (Alt + H)">亚伦格林</a>
+            <a href="https://yaluncoco.github.io/" accesskey="h" title="yalungelin (Alt + H)">yalungelin</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
@@ -160,6 +160,43 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Mask2Former环境配置踩坑记录与解决方案
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>第一步 GitHub官方安装 贴一下官方安装链接：
+Mask2Former
+如果设备（显卡）不是很新，可以先照着官方步骤进行安装。
+如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：
+解决CUDA环境问题
+接下来我就把我踩的坑一一讲述。
+首先我的服务器显卡为 RTX 4090，下面是详细信息。
+Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。
+训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。
+我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。
+下面一一列举。
+1. CUDA_HOME not Found 运行下面命令时：
+cd mask2former/modeling/pixel_decoder/ops sh make.sh 出现：
+CUDA_HOME not Found 因为本机没有安装 CUDA Toolkit，也没有配置环境变量，所以在编译时会提醒没有找到 CUDA。
+我的解决方法是：
+在当前 WSL2 子系统中安装 CUDA Toolkit。
+（就是这个 CUDA 版本的问题令我苦恼了很久。）
+如果所有安装工作都完成，运行训练代码出现下面问题：
+nvrtc: error: invalid value for --gpu-architecture (-arch) 那么可能就是 CUDA 版本和显卡架构不匹配。
+因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。
+下面贴出网上相关讨论：
+参考链接：
+https://github.com/pytorch/pytorch/issues/87595
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-04 00:00:00 +0000 UTC'>August 4, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>Yalun</span></footer>
+  <a class="entry-link" aria-label="post link to Mask2Former环境配置踩坑记录与解决方案" href="https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结
     </h2>
   </header>
@@ -184,7 +221,7 @@ CUDA Toolkit Archive
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://yaluncoco.github.io/">亚伦格林</a></span> · 
+        <span>&copy; 2026 <a href="https://yaluncoco.github.io/">yalungelin</a></span> · 
 
     
     

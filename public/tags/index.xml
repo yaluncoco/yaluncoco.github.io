@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on 亚伦格林</title>
+    <title>Tags on yalungelin</title>
     <link>https://yaluncoco.github.io/tags/</link>
-    <description>Recent content in Tags on 亚伦格林</description>
+    <description>Recent content in Tags on yalungelin</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
@@ -20,6 +20,20 @@
       <link>https://yaluncoco.github.io/tags/cuda/</link>
       <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
       <guid>https://yaluncoco.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Detectron2</title>
+      <link>https://yaluncoco.github.io/tags/detectron2/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/detectron2/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mask2Former</title>
+      <link>https://yaluncoco.github.io/tags/mask2former/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/tags/mask2former/</guid>
       <description></description>
     </item>
     <item>

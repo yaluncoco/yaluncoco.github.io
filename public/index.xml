@@ -1,13 +1,123 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>亚伦格林</title>
+    <title>yalungelin</title>
     <link>https://yaluncoco.github.io/</link>
-    <description>Recent content on 亚伦格林</description>
+    <description>Recent content on yalungelin</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yaluncoco.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mask2Former环境配置踩坑记录与解决方案</title>
+      <link>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</link>
+      <pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</guid>
+      <description>&lt;h2 id=&#34;第一步-github官方安装&#34;&gt;第一步 GitHub官方安装&lt;/h2&gt;
+&lt;p&gt;贴一下官方安装链接：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/facebookresearch/Mask2Former/blob/9b0651c6c1d5b3af2e6da0589b719c514ec0d69a/INSTALL.md&#34;&gt;Mask2Former&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果设备（显卡）不是很新，可以先照着官方步骤进行安装。&lt;/p&gt;
+&lt;p&gt;如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43712324/article/details/135427738?spm=1001.2014.3001.5501&#34;&gt;解决CUDA环境问题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;接下来我就把我踩的坑一一讲述。&lt;/p&gt;
+&lt;p&gt;首先我的服务器显卡为 RTX 4090，下面是详细信息。&lt;/p&gt;
+&lt;p&gt;Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。&lt;/p&gt;
+&lt;p&gt;训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;nvidia-smi&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。&lt;/p&gt;
+&lt;p&gt;下面一一列举。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;1-cuda_home-not-found&#34;&gt;1. CUDA_HOME not Found&lt;/h1&gt;
+&lt;p&gt;运行下面命令时：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd mask2former/modeling/pixel_decoder/ops
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh make.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;出现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CUDA_HOME not Found
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为本机没有安装 CUDA Toolkit，也没有配置环境变量，所以在编译时会提醒没有找到 CUDA。&lt;/p&gt;
+&lt;p&gt;我的解决方法是：&lt;/p&gt;
+&lt;p&gt;在当前 WSL2 子系统中安装 CUDA Toolkit。&lt;/p&gt;
+&lt;p&gt;（就是这个 CUDA 版本的问题令我苦恼了很久。）&lt;/p&gt;
+&lt;p&gt;如果所有安装工作都完成，运行训练代码出现下面问题：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nvrtc: error: invalid value for --gpu-architecture (-arch)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;那么可能就是 CUDA 版本和显卡架构不匹配。&lt;/p&gt;
+&lt;p&gt;因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。&lt;/p&gt;
+&lt;p&gt;下面贴出网上相关讨论：&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;CUDA版本问题&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/pytorch/pytorch/issues/87595&#34;&gt;https://github.com/pytorch/pytorch/issues/87595&lt;/a&gt;&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h2 id="第一步-github官方安装">第一步 GitHub官方安装</h2>
+<p>贴一下官方安装链接：</p>
+<p><a href="https://github.com/facebookresearch/Mask2Former/blob/9b0651c6c1d5b3af2e6da0589b719c514ec0d69a/INSTALL.md">Mask2Former</a></p>
+<p>如果设备（显卡）不是很新，可以先照着官方步骤进行安装。</p>
+<p>如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：</p>
+<p><a href="https://blog.csdn.net/qq_43712324/article/details/135427738?spm=1001.2014.3001.5501">解决CUDA环境问题</a></p>
+<p>接下来我就把我踩的坑一一讲述。</p>
+<p>首先我的服务器显卡为 RTX 4090，下面是详细信息。</p>
+<p>Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。</p>
+<p>训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。</p>
+<p><img alt="nvidia-smi" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png"></p>
+<p>我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。</p>
+<p>下面一一列举。</p>
+<hr>
+<h1 id="1-cuda_home-not-found">1. CUDA_HOME not Found</h1>
+<p>运行下面命令时：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd mask2former/modeling/pixel_decoder/ops
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sh make.sh
+</span></span></code></pre></div><p>出现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CUDA_HOME not Found
+</span></span></code></pre></div><p>因为本机没有安装 CUDA Toolkit，也没有配置环境变量，所以在编译时会提醒没有找到 CUDA。</p>
+<p>我的解决方法是：</p>
+<p>在当前 WSL2 子系统中安装 CUDA Toolkit。</p>
+<p>（就是这个 CUDA 版本的问题令我苦恼了很久。）</p>
+<p>如果所有安装工作都完成，运行训练代码出现下面问题：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nvrtc: error: invalid value for --gpu-architecture (-arch)
+</span></span></code></pre></div><p>那么可能就是 CUDA 版本和显卡架构不匹配。</p>
+<p>因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。</p>
+<p>下面贴出网上相关讨论：</p>
+<p><img alt="CUDA版本问题" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png"></p>
+<p>参考链接：</p>
+<p><a href="https://github.com/pytorch/pytorch/issues/87595">https://github.com/pytorch/pytorch/issues/87595</a></p>
+<p>所以之前做了很多无用功，不停安装 CUDA，但是一直出现各种问题。</p>
+<p>最后安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CUDA Toolkit 11.8
+</span></span></code></pre></div><p>才成功完成配置。</p>
+<p>个人认为：</p>
+<p>首先需要明确机器上的 CUDA Toolkit 和环境中的 CUDA 是否匹配，不然很容易出现类似问题。</p>
+<p>但是这种情况可能只针对当前项目。</p>
+<p>（可能是因为 Mask2Former 需要 CUDA Toolkit 编译 CUDA Extension。）</p>
+<p>以前做其他项目时，没有这么麻烦，只需要保证环境中的 CUDA 和官方提供的 CUDA 版本对应即可。</p>
+<hr>
+<h1 id="2-typeerror-__-init-__-got-an-unexpected-keyword-argument-dtype">2. TypeError: __ init __() got an unexpected keyword argument &lsquo;dtype&rsquo;</h1>
+<p>这个问题出现的情况比较有趣。</p>
+<p>原因是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PyTorch版本
+</span></span><span style="display:flex;"><span>+
+</span></span><span style="display:flex;"><span>Detectron2版本
+</span></span></code></pre></div><p>不兼容。</p>
+<p>我尝试了好几种方法解决这个问题。</p>
+<p>这些解决方法来自下面几个博客，我把链接贴出来，截图方便查看。</p>
+<p><img alt="问题截图1" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image3.png"></p>
+<p><img alt="问题截图2" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image4.png"></p>
+<p>解决问题博客1：</p>
+<p><a href="https://blog.csdn.net/qq_41811902/article/details/134236417">Mask2Former训练问题解决</a></p>
+<p>解决问题博客2：</p>
+<p><a href="https://blog.csdn.net/weixin_63293091/article/details/135187598">Mask2Former环境问题解决</a></p>
+<hr>
+<p>还有其他问题，可以在上述博客中找到解决方法。</p>
+<p>大多数都是单独包的版本兼容问题：</p>
+<ul>
+<li>版本高了需要降低</li>
+<li>版本低了需要升级</li>
+</ul>
+<p>这篇文章写得比较乱，算是对我过去一周配置过程的一个总结。</p>
+<p>我也不是很懂这些环境问题，但是非常感谢那些愿意分享解决方案的博主。</p>
+<p>“开源模型是智商税”，我非常不同意这个说法。</p>
+<p>没有广大愿意分享、交流、记录问题解决过程的人，又怎么能够拨云见日？</p>
+<p>感谢所有愿意分享经验的开发者。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Ubuntu 22.04安装MMSegmentation完整记录与踩坑总结</title>
       <link>https://yaluncoco.github.io/posts/ubuntu-22.0%E5%AE%89%E8%A3%85mmsegmentation/</link>
@@ -203,117 +313,6 @@ pspnet_r50-d8_512x1024_40k_cityscapes_xxxxx.pth
 </span></span></code></pre></div><pre tabindex="0"><code>2.1.0
 </code></pre><p>即可。</p>
 <hr>
-]]></content:encoded>
-    </item>
-    <item>
-      <title></title>
-      <link>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/</guid>
-      <description>&lt;h1 id=&#34;mask2former环境配置解决&#34;&gt;Mask2Former环境配置解决&lt;/h1&gt;
-&lt;h2 id=&#34;第一步-github官方安装&#34;&gt;第一步 GitHub官方安装&lt;/h2&gt;
-&lt;p&gt;贴一下官方安装链接：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/facebookresearch/Mask2Former/blob/9b0651c6c1d5b3af2e6da0589b719c514ec0d69a/INSTALL.md&#34;&gt;Mask2Former&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;如果设备（显卡）不是很新，可以先照着官方步骤进行安装。&lt;/p&gt;
-&lt;p&gt;如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43712324/article/details/135427738?spm=1001.2014.3001.5501&#34;&gt;解决CUDA环境问题&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;接下来我就把我踩的坑一一讲述。&lt;/p&gt;
-&lt;p&gt;首先我的服务器显卡为 RTX 4090，下面是详细信息。&lt;/p&gt;
-&lt;p&gt;Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。&lt;/p&gt;
-&lt;p&gt;训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;nvidia-smi&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。&lt;/p&gt;
-&lt;p&gt;下面一一列举。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;1-cuda_home-not-found&#34;&gt;1. CUDA_HOME not Found&lt;/h1&gt;
-&lt;p&gt;运行下面命令时：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd mask2former/modeling/pixel_decoder/ops
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh make.sh
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;出现：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CUDA_HOME not Found
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为本机没有安装 CUDA Toolkit，也没有配置环境变量，所以在编译时会提醒没有找到 CUDA。&lt;/p&gt;
-&lt;p&gt;我的解决方法是：&lt;/p&gt;
-&lt;p&gt;在当前 WSL2 子系统中安装 CUDA Toolkit。&lt;/p&gt;
-&lt;p&gt;（就是这个 CUDA 版本的问题令我苦恼了很久。）&lt;/p&gt;
-&lt;p&gt;如果所有安装工作都完成，运行训练代码出现下面问题：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nvrtc: error: invalid value for --gpu-architecture (-arch)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;那么可能就是 CUDA 版本和显卡架构不匹配。&lt;/p&gt;
-&lt;p&gt;因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。&lt;/p&gt;
-&lt;p&gt;下面贴出网上相关讨论：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;CUDA版本问题&#34; loading=&#34;lazy&#34; src=&#34;https://yaluncoco.github.io/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;参考链接：&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<h1 id="mask2former环境配置解决">Mask2Former环境配置解决</h1>
-<h2 id="第一步-github官方安装">第一步 GitHub官方安装</h2>
-<p>贴一下官方安装链接：</p>
-<p><a href="https://github.com/facebookresearch/Mask2Former/blob/9b0651c6c1d5b3af2e6da0589b719c514ec0d69a/INSTALL.md">Mask2Former</a></p>
-<p>如果设备（显卡）不是很新，可以先照着官方步骤进行安装。</p>
-<p>如果对 CUDA 环境安装有疑问，可以参考我的另一篇博文：</p>
-<p><a href="https://blog.csdn.net/qq_43712324/article/details/135427738?spm=1001.2014.3001.5501">解决CUDA环境问题</a></p>
-<p>接下来我就把我踩的坑一一讲述。</p>
-<p>首先我的服务器显卡为 RTX 4090，下面是详细信息。</p>
-<p>Windows 本机只有显卡驱动，没有安装 CUDA Toolkit。</p>
-<p>训练使用的是 WSL2（Windows 子系统 Ubuntu 20.04）。</p>
-<p><img alt="nvidia-smi" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image1.png"></p>
-<p>我经历了很多过程，首先是按照官方步骤进行安装，但是遇到了很多问题。</p>
-<p>下面一一列举。</p>
-<hr>
-<h1 id="1-cuda_home-not-found">1. CUDA_HOME not Found</h1>
-<p>运行下面命令时：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd mask2former/modeling/pixel_decoder/ops
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sh make.sh
-</span></span></code></pre></div><p>出现：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CUDA_HOME not Found
-</span></span></code></pre></div><p>因为本机没有安装 CUDA Toolkit，也没有配置环境变量，所以在编译时会提醒没有找到 CUDA。</p>
-<p>我的解决方法是：</p>
-<p>在当前 WSL2 子系统中安装 CUDA Toolkit。</p>
-<p>（就是这个 CUDA 版本的问题令我苦恼了很久。）</p>
-<p>如果所有安装工作都完成，运行训练代码出现下面问题：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nvrtc: error: invalid value for --gpu-architecture (-arch)
-</span></span></code></pre></div><p>那么可能就是 CUDA 版本和显卡架构不匹配。</p>
-<p>因为我的服务器显卡比较新，所以 CUDA 版本存在兼容性问题。</p>
-<p>下面贴出网上相关讨论：</p>
-<p><img alt="CUDA版本问题" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image2.png"></p>
-<p>参考链接：</p>
-<p><a href="https://github.com/pytorch/pytorch/issues/87595">https://github.com/pytorch/pytorch/issues/87595</a></p>
-<p>所以之前做了很多无用功，不停安装 CUDA，但是一直出现各种问题。</p>
-<p>最后安装：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CUDA Toolkit 11.8
-</span></span></code></pre></div><p>才成功完成配置。</p>
-<p>个人认为：</p>
-<p>首先需要明确机器上的 CUDA Toolkit 和环境中的 CUDA 是否匹配，不然很容易出现类似问题。</p>
-<p>但是这种情况可能只针对当前项目。</p>
-<p>（可能是因为 Mask2Former 需要 CUDA Toolkit 编译 CUDA Extension。）</p>
-<p>以前做其他项目时，没有这么麻烦，只需要保证环境中的 CUDA 和官方提供的 CUDA 版本对应即可。</p>
-<hr>
-<h1 id="2-typeerror-__-init-__-got-an-unexpected-keyword-argument-dtype">2. TypeError: __ init __() got an unexpected keyword argument &lsquo;dtype&rsquo;</h1>
-<p>这个问题出现的情况比较有趣。</p>
-<p>原因是：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PyTorch版本
-</span></span><span style="display:flex;"><span>+
-</span></span><span style="display:flex;"><span>Detectron2版本
-</span></span></code></pre></div><p>不兼容。</p>
-<p>我尝试了好几种方法解决这个问题。</p>
-<p>这些解决方法来自下面几个博客，我把链接贴出来，截图方便查看。</p>
-<p><img alt="问题截图1" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image3.png"></p>
-<p><img alt="问题截图2" loading="lazy" src="/posts/mask2former%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3/image4.png"></p>
-<p>解决问题博客1：</p>
-<p><a href="https://blog.csdn.net/qq_41811902/article/details/134236417">Mask2Former训练问题解决</a></p>
-<p>解决问题博客2：</p>
-<p><a href="https://blog.csdn.net/weixin_63293091/article/details/135187598">Mask2Former环境问题解决</a></p>
-<hr>
-<p>还有其他问题，可以在上述博客中找到解决方法。</p>
-<p>大多数都是单独包的版本兼容问题：</p>
-<ul>
-<li>版本高了需要降低</li>
-<li>版本低了需要升级</li>
-</ul>
-<p>这篇文章写得比较乱，算是对我过去一周配置过程的一个总结。</p>
-<p>我也不是很懂这些环境问题，但是非常感谢那些愿意分享解决方案的博主。</p>
-<p>“开源模型是智商税”，我非常不同意这个说法。</p>
-<p>没有广大愿意分享、交流、记录问题解决过程的人，又怎么能够拨云见日？</p>
-<p>感谢所有愿意分享经验的开发者。</p>
 ]]></content:encoded>
     </item>
     <item>
