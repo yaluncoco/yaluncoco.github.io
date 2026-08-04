@@ -1,6 +1,6 @@
 baseURL: "https://yaluncoco.github.io/"
 languageCode: zh-cn
-title: "Yalun Blog"
+title: "亚伦格林的博客"
 
 theme:
   - PaperMod
