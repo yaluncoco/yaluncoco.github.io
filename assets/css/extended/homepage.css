@@ -1,20 +1,32 @@
 /* ===========================
-   顶部导航栏增强可读性
+   顶部导航增强可读性
 =========================== */
+
+.header {
+
+    position: relative;
+
+    z-index: 10;
+
+}
+
+
+/* 导航栏玻璃背景 */
 
 .nav {
 
-    background: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.65);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(15px);
 
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(15px);
 
-    border-radius: 14px;
+    border-radius: 16px;
 
     padding: 8px 18px;
 
-    box-shadow:0 4px 20px rgba(0,0,0,.12);
+    box-shadow:
+        0 4px 20px rgba(0,0,0,.15);
 
 }
 
@@ -23,12 +35,22 @@
 
 .nav a {
 
-    color:#222;
+    color:#111 !important;
 
     font-weight:600;
 
-    text-shadow:
-        0 1px 3px rgba(255,255,255,.5);
+    text-shadow:none;
+
+}
+
+
+/* Logo */
+
+.logo a {
+
+    color:#111 !important;
+
+    font-weight:700;
 
 }
 
@@ -37,19 +59,19 @@
 
 .dark .nav {
 
-    background:rgba(20,20,20,.45);
+    background:rgba(20,20,20,.65);
 
 }
 
 
-.dark .nav a {
+.dark .nav a,
+.dark .logo a {
 
-    color:#fff;
-
-    text-shadow:
-        0 1px 4px rgba(0,0,0,.8);
+    color:#fff !important;
 
 }
+
+
 /* ===========================
    首页背景壁纸
 =========================== */
