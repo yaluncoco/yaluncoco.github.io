@@ -122,16 +122,6 @@
 }
 
 
-/* 鼠标悬停 */
-
-.logo a:hover,
-.menu a:hover,
-#menu a:hover {
-
-    color:#ffffff !important;
-
-}
-
 /* ===========================
    首页背景壁纸
 =========================== */
