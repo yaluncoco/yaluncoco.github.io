@@ -70,6 +70,31 @@
     color:#fff !important;
 
 }
+/* ===========================
+   顶部导航文字颜色
+=========================== */
+
+.logo a,
+.nav a {
+
+    color: #ffffff !important;
+
+    font-weight: 600;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,.85);
+
+}
+
+
+/* 鼠标悬停 */
+
+.logo a:hover,
+.nav a:hover {
+
+    color: #ffffff !important;
+
+}
 
 
 /* ===========================
