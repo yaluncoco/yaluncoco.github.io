@@ -54,65 +54,87 @@ body.home::before{
    HomeInfo
 =========================== */
 
+/* ===========================
+   HomeInfo
+=========================== */
+
 .first-entry.home-info{
 
     max-width:768px;
 
-    margin:24px auto;          /* 减小上下外边距 */
+    margin:20px auto;
 
-    padding:12px 28px;         /* 大幅减少上下 padding */
+    padding:14px 28px;
 
-    border-radius:18px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,.55);
 
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
 
-    background:rgba(255,255,255,.55);
-
-    box-shadow:0 8px 24px rgba(0,0,0,.18);
-
+    box-shadow:0 6px 20px rgba(0,0,0,.18);
 }
 
 
-/* 标题 */
+/* Header */
 
 .first-entry.home-info .entry-header{
 
-    margin-bottom:8px;
+    margin:0;
+
+    padding:0;
 
 }
 
-.first-entry.home-info h1{
 
-    font-size:2rem;
+/* Title */
+
+.first-entry.home-info .entry-header h1{
 
     margin:0;
 
     line-height:1.2;
 
+    font-size:2rem;
+
     text-align:center;
 
 }
 
 
-/* 正文 */
+/* Content */
 
 .first-entry.home-info .entry-content{
 
-    margin:0;
+    margin:8px 0 0 0;
 
-    line-height:1.5;
+    padding:0;
 
     text-align:center;
 
 }
 
+/* 真正撑高的是 p */
 
-/* 去掉最后多余空白 */
+.first-entry.home-info .entry-content p{
+
+    margin:0;
+
+    line-height:1.6;
+
+}
+
+
+/* Footer */
 
 .first-entry.home-info .entry-footer{
 
-    display:none;
+    margin:8px 0 0 0;
+
+    padding:0;
+
+    min-height:0;
 
 }
 
