@@ -1,0 +1,34 @@
+{{ if .IsHome }}
+
+<script>
+
+fetch("/wallpapers.json")
+.then(res => res.json())
+.then(wallpapers => {
+
+    if (!wallpapers.length) return;
+
+    let current = Math.floor(Math.random() * wallpapers.length);
+
+    function changeWallpaper() {
+
+        document.body.style.backgroundImage =
+            `url('/images/wallpapers/${wallpapers[current]}')`;
+
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+        document.body.style.transition = "background-image 1s ease";
+
+        current = (current + 1) % wallpapers.length;
+    }
+
+    changeWallpaper();
+
+    setInterval(changeWallpaper, 10 * 60 * 1000);
+
+});
+
+</script>
+
+{{ end }}

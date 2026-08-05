@@ -1,0 +1,12 @@
+/* 仅首页 */
+
+.home-info {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.dark .home-info {
+    background: rgba(25,25,25,0.78);
+}

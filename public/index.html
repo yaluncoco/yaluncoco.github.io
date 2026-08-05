@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://yaluncoco.github.io/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e3358538adf60d3669eaa7842684069e47d388ac9f7ac811f3f7771c964b610a.css" integrity="sha256-4zWFOK32DTZp6qeEJoQGnkfTiKyfesgR8/d3HJZLYQo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://yaluncoco.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://yaluncoco.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://yaluncoco.github.io/favicon-32x32.png">
@@ -245,6 +245,39 @@ CUDA Toolkit Archive
         <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
+
+<script>
+
+fetch("/wallpapers.json")
+.then(res => res.json())
+.then(wallpapers => {
+
+    if (!wallpapers.length) return;
+
+    let current = Math.floor(Math.random() * wallpapers.length);
+
+    function changeWallpaper() {
+
+        document.body.style.backgroundImage =
+            `url('/images/wallpapers/${wallpapers[current]}')`;
+
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+        document.body.style.transition = "background-image 1s ease";
+
+        current = (current + 1) % wallpapers.length;
+    }
+
+    changeWallpaper();
+
+    setInterval(changeWallpaper, 10 * 60 * 1000);
+
+});
+
+</script>
+
+
 
 <script>
     let menu = document.getElementById('menu');
