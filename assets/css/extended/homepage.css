@@ -1,144 +1,177 @@
 /* ===========================
-   首页背景
+   首页背景壁纸
 =========================== */
 
-#homepage-wallpaper{
+#homepage-wallpaper {
 
-    position:fixed;
+    position: fixed;
 
-    inset:0;
+    inset: 0;
 
-    z-index:-20;
+    z-index: -20;
 
-    background-size:cover;
+    background-size: cover;
 
-    background-position:center;
+    background-position: center;
 
-}
-
-/* 黑色遮罩 */
-
-#homepage-wallpaper::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(0,0,0,.35);
+    background-repeat: no-repeat;
 
 }
 
-/* 黑色遮罩 */
 
-body.home::before{
+/* 背景遮罩，提高文字可读性 */
 
-    content:"";
+#homepage-wallpaper::after {
 
-    position:fixed;
+    content: "";
 
-    inset:0;
+    position: absolute;
 
-    background:rgba(0,0,0,.18);
+    inset: 0;
 
-    z-index:-9;
+    background: linear-gradient(
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.25),
+        rgba(0,0,0,.45)
+    );
 
 }
 
 
 /* ===========================
-   HomeInfo
+   HomeInfo 首页介绍卡片
 =========================== */
+
+
+/*
+   覆盖 PaperMod first-entry 默认高度
+*/
+
+.main article.first-entry.home-info {
+
+    min-height: 0 !important;
+
+    height: auto !important;
+
+    display: block !important;
+
+
+    max-width: 768px;
+
+
+    margin: 20px auto !important;
+
+
+    padding: 14px 28px !important;
+
+
+    border-radius: 16px;
+
+
+    background: rgba(255,255,255,.55);
+
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+
+
+    box-shadow: 0 6px 20px rgba(0,0,0,.18);
+
+}
+
+
+
+/* 深色模式 */
+
+.dark .main article.first-entry.home-info {
+
+    background: rgba(20,20,20,.60);
+
+}
+
+
+
 /* ===========================
-   HomeInfo
+   标题
 =========================== */
+
+
+.main article.first-entry.home-info .entry-header {
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+}
+
+
+
+.main article.first-entry.home-info .entry-header h1 {
+
+    margin: 0 !important;
+
+    padding: 0;
+
+
+    font-size: 2rem;
+
+
+    line-height: 1.25;
+
+
+    text-align: center;
+
+}
+
+
 
 /* ===========================
-   HomeInfo
+   正文
 =========================== */
 
-.first-entry.home-info{
 
-    max-width:768px;
+.main article.first-entry.home-info .entry-content {
 
-    margin:20px auto;
+    margin: 8px 0 0 0 !important;
 
-    padding:14px 28px;
-
-    border-radius:16px;
-
-    background:rgba(255,255,255,.55);
-
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-
-    box-shadow:0 6px 20px rgba(0,0,0,.18);
-}
+    padding: 0 !important;
 
 
-/* Header */
-
-.first-entry.home-info .entry-header{
-
-    margin:0;
-
-    padding:0;
+    text-align: center;
 
 }
 
 
-/* Title */
 
-.first-entry.home-info .entry-header h1{
+.main article.first-entry.home-info .entry-content p {
 
-    margin:0;
+    margin: 0 !important;
 
-    line-height:1.2;
 
-    font-size:2rem;
-
-    text-align:center;
+    line-height: 1.6;
 
 }
 
 
-/* Content */
 
-.first-entry.home-info .entry-content{
+/* 隐藏空 footer */
 
-    margin:8px 0 0 0;
+.main article.first-entry.home-info .entry-footer {
 
-    padding:0;
-
-    text-align:center;
-
-}
-
-/* 真正撑高的是 p */
-
-.first-entry.home-info .entry-content p{
-
-    margin:0;
-
-    line-height:1.6;
+    display:none !important;
 
 }
 
 
-/* Footer */
 
-.first-entry.home-info .entry-footer{
-
-    display:none;
-
-}
+/* ===========================
+   首页整体位置
+=========================== */
 
 
-/* 首页离顶部远一点 */
+.main {
 
-.main{
-
-    padding-top:40px;
+    padding-top: 40px;
 
 }
