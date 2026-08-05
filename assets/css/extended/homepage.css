@@ -70,15 +70,19 @@
     color:#fff !important;
 
 }
+
+
 /* ===========================
-   顶部导航字体颜色
+   PaperMod 顶部菜单字体颜色
 =========================== */
 
-
-header.header nav#menu a,
-header.header .nav #menu a {
+.menu a,
+#menu a,
+.nav #menu a {
 
     color: #ffffff !important;
+
+    font-size: 16px;
 
     font-weight: 600;
 
@@ -88,16 +92,14 @@ header.header .nav #menu a {
 }
 
 
-/* 网站标题 */
+/* 当前选中的菜单 */
 
-header.header .logo a {
+.menu .active,
+.menu .active a,
+#menu .active,
+#menu .active a {
 
-    color:#ffffff !important;
-
-    font-weight:700;
-
-    text-shadow:
-        0 2px 6px rgba(0,0,0,.9);
+    color: #ffffff !important;
 
 }
 
