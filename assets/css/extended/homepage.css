@@ -50,52 +50,69 @@ body.home::before{
 /* ===========================
    HomeInfo
 =========================== */
+/* ===========================
+   HomeInfo
+=========================== */
 
 .first-entry.home-info{
 
-    max-width:768px;      /* 恢复 PaperMod 默认宽度 */
+    max-width:768px;
 
-    margin:40px auto;     /* 上下间距缩小 */
+    margin:24px auto;          /* 减小上下外边距 */
 
-    padding:20px 30px;    /* 高度明显降低 */
+    padding:12px 28px;         /* 大幅减少上下 padding */
 
     border-radius:18px;
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
 
-    background:rgba(255,255,255,.45);
+    background:rgba(255,255,255,.55);
 
-    box-shadow:0 8px 30px rgba(0,0,0,.18);
-
-}
-
-/* 深色模式 */
-
-.dark .first-entry.home-info{
-
-    background:rgba(25,25,25,.60);
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
 
 }
 
 
 /* 标题 */
 
+.first-entry.home-info .entry-header{
+
+    margin-bottom:8px;
+
+}
+
 .first-entry.home-info h1{
 
-    font-size:2.3rem;
+    font-size:2rem;
+
+    margin:0;
+
+    line-height:1.2;
 
     text-align:center;
 
 }
 
 
-/* 副标题 */
+/* 正文 */
 
 .first-entry.home-info .entry-content{
 
+    margin:0;
+
+    line-height:1.5;
+
     text-align:center;
 
-    line-height:1.9;
+}
+
+
+/* 去掉最后多余空白 */
+
+.first-entry.home-info .entry-footer{
+
+    display:none;
 
 }
 
