@@ -74,27 +74,35 @@
    顶部导航文字颜色
 =========================== */
 
-.logo a,
-.nav a {
+/* ===========================
+   顶部菜单字体颜色
+=========================== */
+
+header.header .nav a {
 
     color: #ffffff !important;
 
     font-weight: 600;
 
     text-shadow:
-        0 2px 6px rgba(0,0,0,.85);
+        0 2px 6px rgba(0,0,0,.9);
 
 }
 
 
-/* 鼠标悬停 */
+/* 网站标题 */
 
-.logo a:hover,
-.nav a:hover {
+header.header .logo a {
 
     color: #ffffff !important;
 
+    font-weight: 700;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,.9);
+
 }
+
 
 
 /* ===========================
