@@ -71,10 +71,28 @@
 
 }
 
-
 /* ===========================
-   PaperMod 顶部菜单字体颜色
+   PaperMod 顶部 Logo + 菜单字体颜色
 =========================== */
+
+
+/* 网站标题 */
+
+.logo a {
+
+    color: #ffffff !important;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,.9);
+
+}
+
+
+/* 顶部菜单 */
 
 .menu a,
 #menu a,
@@ -103,6 +121,16 @@
 
 }
 
+
+/* 鼠标悬停 */
+
+.logo a:hover,
+.menu a:hover,
+#menu a:hover {
+
+    color:#ffffff !important;
+
+}
 
 /* ===========================
    首页背景壁纸
